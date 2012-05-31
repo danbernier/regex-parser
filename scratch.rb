@@ -1,3 +1,5 @@
+# This is all based on http://swtch.com/~rsc/regexp/regexp1.html
+
 class Match
   def sample(max_length)
     ''

@@ -16,4 +16,4 @@ sample strings (by walking the finite automata).
 1. It's all in one file right now. Break it out into files.
 1. Add some minitests.
 1. Implement a pattern parser & builder.
-1. Add non-literals to the patterns, so things like @.@, @[0-9]@, and @\d@ work.
+1. Add non-literals to the patterns, so things like *.*, *[0-9]*, and *\d* work.

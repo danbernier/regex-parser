@@ -37,6 +37,17 @@ end
 
 if $0 == __FILE__
 
+  def test(pattern, *strings)
+    5.times do
+      puts pattern.sample
+    end
+
+    strings.each do |string|
+      msg = pattern.match?(string) ? 'yes' : 'no'
+      puts "#{string} -> #{msg}"
+    end
+  end
+
   # Let's build this: /ab+c/
   match = Match.new
   two = Node.new
@@ -47,14 +58,7 @@ if $0 == __FILE__
   start = Node.new
   start.connect('a', one)
 
-  5.times do
-    puts start.sample
-  end
-
-  ['abc', 'ab', 'abbbbbbc'].each do |string|
-    msg = start.match?(string) ? 'yes' : 'no'
-    puts "#{string} -> #{msg}"
-  end
+  test(start, 'abc', 'ab', 'abbbbbbc')
 
 
   puts
@@ -67,13 +71,23 @@ if $0 == __FILE__
   start = Node.new
   start.connect('a', one)
 
-  5.times do
-    puts start.sample
-  end
+  test(start, 'ac', 'abc', 'abbbbc', 'ab')
 
-  ['ac', 'abc', 'abbbbc', 'ab'].each do |string|
-    msg = start.match?(string) ? 'yes' : 'no'
-    puts "#{string} -> #{msg}"
-  end
+
+  puts
+
+  # Now try /a(bb)+c/
+  match = Match.new
+  three = Node.new
+  three.connect('c', match)
+  two = Node.new
+  two.connect('b', three)
+  three.connect('b', two)
+  one = Node.new
+  one.connect('b', two)
+  start = Node.new
+  start.connect('a', one)
+
+  test(start, 'ac', 'abc', 'abbc', 'abbbc', 'abbbbc')
 
 end

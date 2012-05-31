@@ -36,7 +36,6 @@ end
 if $0 == __FILE__
 
   # Let's build this: /ab+c/
-  
   match = Match.new
   two = Node.new
   two.connect('c', match)
@@ -51,6 +50,26 @@ if $0 == __FILE__
   end
 
   ['abc', 'ab', 'abbbbbbc'].each do |string|
+    msg = start.match?(string) ? 'yes' : 'no'
+    puts "#{string} -> #{msg}"
+  end
+
+
+  puts
+
+  # Now, try /ab*c/
+  match = Match.new
+  one = Node.new
+  one.connect('c', match)
+  one.connect('b', one)
+  start = Node.new
+  start.connect('a', one)
+
+  5.times do
+    puts start.sample
+  end
+
+  ['ac', 'abc', 'abbbbc', 'ab'].each do |string|
     msg = start.match?(string) ? 'yes' : 'no'
     puts "#{string} -> #{msg}"
   end

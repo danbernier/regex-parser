@@ -4,6 +4,11 @@ This is all based on [Russ Cox' paper about fast-matching regular
 expressions](http://swtch.com/~rsc/regexp/regexp1.html). It's a neat
 paper, you should check it out.
 
+# What's the goal?
+
+It's all about playing with the ideas. There's no practical, useful
+plan. If that happens, that's awesome, but it'll be later.
+
 # What's it do so far?
 
 Read the code, there's not much of it. But the idea is, you hand-roll

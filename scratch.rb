@@ -90,4 +90,19 @@ if $0 == __FILE__
 
   test(start, 'ac', 'abc', 'abbc', 'abbbc', 'abbbbc')
 
+
+  puts
+
+  # Try /ab?c/
+  match = Match.new
+  two = Node.new
+  two.connect('c', match)
+  one = Node.new
+  one.connect('b', two)
+  one.connect('c', match)
+  start = Node.new
+  start.connect('a', one)
+
+  test(start, 'abc', 'ac', 'abbc')
+
 end

@@ -4,6 +4,12 @@ This is all based on [Russ Cox' paper about fast-matching regular
 expressions](http://swtch.com/~rsc/regexp/regexp1.html). It's a neat
 paper, you should check it out.
 
+## So Ruby regexes are slow?
+
+Look in the notes folder to see my evidence. It seems to bear out Russ
+Cox' point. So yes, it seems that in ruby, these kind of regexes are
+slow.
+
 # What's the goal?
 
 It's all about playing with the ideas. There's no practical, useful

@@ -6,9 +6,8 @@ require_relative '../lib/match.rb'
 
 class Stuff < MiniTest::Unit::TestCase
 
-  def test_plus_operator
-    
-    # Let's build this: /ab+c/
+  def plus_operator
+    # /ab+c/
     match = Match.new
     two = Node.new
     two.connect('c', match)
@@ -17,39 +16,51 @@ class Stuff < MiniTest::Unit::TestCase
     one.connect('b', two)
     start = Node.new
     start.connect('a', one)
+    start
+  end
 
-    assert(start.match?('abc'))
-    assert(start.match?('abbbbbbc'))
-    refute(start.match?('ab'))
+  def test_plus_operator_match
+    pattern = plus_operator
+    assert(pattern.match?('abc'))
+    assert(pattern.match?('abbbbbbc'))
+    refute(pattern.match?('ab'))
+  end
 
+  def test_plus_operator_sample
+    pattern = plus_operator
     10.times do
-      assert_match(/ab+c/, start.sample)
+      assert_match(/ab+c/, pattern.sample)
     end
   end
 
-  def test_star_operator
-
-    # Now, try /ab*c/
+  def star_operator
+    # /ab*c/
     match = Match.new
     one = Node.new
     one.connect('c', match)
     one.connect('b', one)
     start = Node.new
     start.connect('a', one)
+    start
+  end
 
-    assert(start.match?('ac'))
-    assert(start.match?('abc'))
-    assert(start.match?('abbbbc'))
-    refute(start.match?('ab'))
+  def test_star_operator_match
+    pattern = star_operator
+    assert(pattern.match?('ac'))
+    assert(pattern.match?('abc'))
+    assert(pattern.match?('abbbbc'))
+    refute(pattern.match?('ab'))
+  end
 
+  def test_star_operator_sample
+    pattern = star_operator
     10.times do
-      assert_match(/ab*c/, start.sample)
+      assert_match(/ab*c/, pattern.sample)
     end
   end
 
-  def test_group_with_plus_operator
-
-    # Now try /a(bb)+c/
+  def group_with_plus_operator
+    # /a(bb)+c/
     match = Match.new
     three = Node.new
     three.connect('c', match)
@@ -60,21 +71,27 @@ class Stuff < MiniTest::Unit::TestCase
     one.connect('b', two)
     start = Node.new
     start.connect('a', one)
+    start
+  end
 
-    assert(start.match?('abbc'))
-    assert(start.match?('abbbbc'))
-    refute(start.match?('ac'))
-    refute(start.match?('abc'))
-    refute(start.match?('abbbc'))
+  def test_group_with_plus_operator_match
+    pattern = group_with_plus_operator
+    assert(pattern.match?('abbc'))
+    assert(pattern.match?('abbbbc'))
+    refute(pattern.match?('ac'))
+    refute(pattern.match?('abc'))
+    refute(pattern.match?('abbbc'))
+  end
 
+  def test_group_with_plus_operator_sample
+    pattern = group_with_plus_operator
     10.times do
-      assert_match(/a(bb)+c/, start.sample)
+      assert_match(/a(bb)+c/, pattern.sample)
     end
   end
 
-  def test_question_mark_operator
-
-    # Try /ab?c/
+  def question_mark_operator
+    # /ab?c/
     match = Match.new
     two = Node.new
     two.connect('c', match)
@@ -83,13 +100,20 @@ class Stuff < MiniTest::Unit::TestCase
     one.connect('c', match)
     start = Node.new
     start.connect('a', one)
+    start
+  end
 
-    assert(start.match?('ac'))
-    assert(start.match?('abc'))
-    refute(start.match?('abbc'))
+  def test_question_mark_operator_match
+    pattern = question_mark_operator
+    assert(pattern.match?('ac'))
+    assert(pattern.match?('abc'))
+    refute(pattern.match?('abbc'))
+  end
 
+  def test_question_mark_operator_sample
+    pattern = question_mark_operator
     10.times do
-      assert_match(/ab?c/, start.sample)
+      assert_match(/ab?c/, pattern.sample)
     end
   end
 end

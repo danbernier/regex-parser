@@ -1,10 +1,7 @@
-require 'minitest/unit'
-require 'minitest/autorun'
-
-require_relative '../lib/matcher.rb'
-require_relative '../lib/sampler.rb'
-require_relative '../lib/node.rb'
-require_relative '../lib/match.rb'
+require 'matcher'
+require 'sampler'
+require 'node'
+require 'match'
 
 class Stuff < MiniTest::Unit::TestCase
 

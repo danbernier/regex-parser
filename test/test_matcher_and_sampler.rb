@@ -3,7 +3,7 @@ require 'sampler'
 require 'node'
 require 'match'
 
-class Stuff < MiniTest::Unit::TestCase
+class TestMatcherAndSampler < MiniTest::Unit::TestCase
 
   def plus_operator
     # /ab+c/

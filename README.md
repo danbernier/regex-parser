@@ -26,6 +26,4 @@ sample strings (by walking the finite automata).
 
 1. Implement a pattern parser & builder.
 1. Add non-literals to the patterns, so things like *.*, *[0-9]*, and *\d* work.
-1. Right now, it's only deterministic FAs. To match the paper, it
-   really needs to be non-deterministic, so I have to stop using a hash,
-   or something.
+1. I made it support NFAs, but I should probably add more tests.

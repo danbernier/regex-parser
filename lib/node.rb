@@ -5,19 +5,25 @@ class Node
   end
 
   def connect(val, node)
-    @edges[val] = node
+    @edges[val] ||= []
+    @edges[val].push(node)
+  end
+
+  def next_nodes(val)
+    @edges[val] || []
   end
 
   def sample(max_length=70)
     return '' if max_length == 0
 
-    char, nxt = *@edges.to_a.sample
+    char = @edges.keys.sample
+    nxt = @edges[char]
+    nxt = nxt.sample
+
     char + nxt.sample(max_length-1)
   end
 
   def match?(chars)
-    return match?(chars.split('')) unless chars.is_a? Array
-
     char = chars.shift
     @edges[char] && @edges[char].match?(chars)
   end

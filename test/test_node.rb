@@ -1,6 +1,7 @@
 require 'minitest/unit'
 require 'minitest/autorun'
 
+require_relative '../lib/matcher.rb'
 require_relative '../lib/node.rb'
 require_relative '../lib/match.rb'
 
@@ -20,7 +21,7 @@ class Stuff < MiniTest::Unit::TestCase
   end
 
   def test_plus_operator_match
-    pattern = plus_operator
+    pattern = Matcher.new(plus_operator)
     assert(pattern.match?('abc'))
     assert(pattern.match?('abbbbbbc'))
     refute(pattern.match?('ab'))
@@ -45,7 +46,7 @@ class Stuff < MiniTest::Unit::TestCase
   end
 
   def test_star_operator_match
-    pattern = star_operator
+    pattern = Matcher.new(star_operator)
     assert(pattern.match?('ac'))
     assert(pattern.match?('abc'))
     assert(pattern.match?('abbbbc'))
@@ -75,7 +76,7 @@ class Stuff < MiniTest::Unit::TestCase
   end
 
   def test_group_with_plus_operator_match
-    pattern = group_with_plus_operator
+    pattern = Matcher.new(group_with_plus_operator)
     assert(pattern.match?('abbc'))
     assert(pattern.match?('abbbbc'))
     refute(pattern.match?('ac'))
@@ -104,7 +105,7 @@ class Stuff < MiniTest::Unit::TestCase
   end
 
   def test_question_mark_operator_match
-    pattern = question_mark_operator
+    pattern = Matcher.new(question_mark_operator)
     assert(pattern.match?('ac'))
     assert(pattern.match?('abc'))
     refute(pattern.match?('abbc'))
@@ -115,5 +116,29 @@ class Stuff < MiniTest::Unit::TestCase
     10.times do
       assert_match(/ab?c/, pattern.sample)
     end
+  end
+
+
+
+  def test_nfa_match
+    # /a(bb)+c/
+    match = Match.new
+    three = Node.new
+    three.connect('c', match)
+    two = Node.new
+    two.connect('b', three)
+    one = Node.new
+    one.connect('b', two)
+    two.connect('b', one)
+    start = Node.new
+    start.connect('a', one)
+
+
+    pattern = Matcher.new(start)
+    assert(pattern.match?('abbc'))
+    assert(pattern.match?('abbbbc'))
+    refute(pattern.match?('ac'))
+    refute(pattern.match?('abc'))
+    refute(pattern.match?('abbbc'))
   end
 end

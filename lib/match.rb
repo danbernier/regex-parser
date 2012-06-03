@@ -1,6 +1,6 @@
 
 class Match
-  def sample(max_length)
+  def sample
     ''
   end
 

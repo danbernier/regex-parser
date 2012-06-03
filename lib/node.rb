@@ -13,18 +13,8 @@ class Node
     @edges[val] || []
   end
 
-  def sample(max_length=70)
-    return '' if max_length == 0
-
+  def sample
     char = @edges.keys.sample
-    nxt = @edges[char]
-    nxt = nxt.sample
-
-    char + nxt.sample(max_length-1)
-  end
-
-  def match?(chars)
-    char = chars.shift
-    @edges[char] && @edges[char].match?(chars)
+    [char, @edges[char].sample]
   end
 end

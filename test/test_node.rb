@@ -2,6 +2,7 @@ require 'minitest/unit'
 require 'minitest/autorun'
 
 require_relative '../lib/matcher.rb'
+require_relative '../lib/sampler.rb'
 require_relative '../lib/node.rb'
 require_relative '../lib/match.rb'
 
@@ -28,7 +29,7 @@ class Stuff < MiniTest::Unit::TestCase
   end
 
   def test_plus_operator_sample
-    pattern = plus_operator
+    pattern = Sampler.new(plus_operator)
     10.times do
       assert_match(/ab+c/, pattern.sample)
     end
@@ -54,7 +55,7 @@ class Stuff < MiniTest::Unit::TestCase
   end
 
   def test_star_operator_sample
-    pattern = star_operator
+    pattern = Sampler.new(star_operator)
     10.times do
       assert_match(/ab*c/, pattern.sample)
     end
@@ -85,7 +86,7 @@ class Stuff < MiniTest::Unit::TestCase
   end
 
   def test_group_with_plus_operator_sample
-    pattern = group_with_plus_operator
+    pattern = Sampler.new(group_with_plus_operator)
     10.times do
       assert_match(/a(bb)+c/, pattern.sample)
     end
@@ -112,7 +113,7 @@ class Stuff < MiniTest::Unit::TestCase
   end
 
   def test_question_mark_operator_sample
-    pattern = question_mark_operator
+    pattern = Sampler.new(question_mark_operator)
     10.times do
       assert_match(/ab?c/, pattern.sample)
     end

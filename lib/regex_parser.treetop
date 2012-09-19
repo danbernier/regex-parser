@@ -1,0 +1,9 @@
+grammar Regex
+  rule literals
+    [a-zA-Z0-9]+ {
+      def node
+        elements.map { |e| [:literal, e.text_value] }
+      end
+    }
+  end
+end
